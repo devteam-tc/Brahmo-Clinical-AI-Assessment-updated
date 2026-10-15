@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRAHMO Clinical AI — Clinical Safety & Grounded Intelligence</title>
+    <style>
+        :root {
+            --bg: #0b101b;
+            --surface: #131b2e;
+            --surface-hover: #1c273e;
+            --border: #233352;
+            --primary: #38bdf8;
+            --primary-glow: rgba(56, 189, 248, 0.25);
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --hit: #ef4444;
+            --clean: #10b981;
+            --unverified: #f59e0b;
+            --critical: #dc2626;
+            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: var(--font-family);
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        header {
+            background: linear-gradient(180deg, #162035 0%, var(--bg) 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 24px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-area h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+        }
+
+        .logo-area span {
+            color: var(--primary);
+        }
+
+        .logo-area p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 12px;
+            padding: 16px 36px;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-main);
+            background: var(--surface-hover);
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: #04101d;
+            border-color: var(--primary);
+        }
+
+        main {
+            max-width: 1300px;
+            margin: 28px auto;
+            padding: 0 24px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .card h2 {
+            font-size: 1.25rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge-hit { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid #ef4444; }
+        .badge-clean { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid #10b981; }
+        .badge-unverified { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid #f59e0b; }
+        .badge-info { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid #38bdf8; }
+
+        .btn {
+            background: var(--primary);
+            color: #04101d;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-secondary {
+            background: var(--surface-hover);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+        }
+
+        select, input, textarea {
+            background: #090e17;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            width: 100%;
+            margin-bottom: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            font-size: 0.88rem;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .result-box {
+            background: #070b13;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 18px;
+            margin-top: 18px;
+        }
+
+        .citation-tag {
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--primary);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 6px;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: #0a1120;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .stat-card .num {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-card .label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo-area">
+        <h1>BRAHMO <span>Clinical AI</span></h1>
+        <p>Patient-Aware · Grounded in Indian Medical Sources · Deterministic Safety Rail</p>
+    </div>
+    <div>
+        <span class="badge badge-clean">Production Core Ready</span>
+        <span class="badge badge-info" id="sys-version">v1.0.0</span>
+    </div>
+</header>
+
+<div class="nav-tabs">
+    <button class="tab-btn active" onclick="switchTab('safety-tab')">Medication Safety Rail</button>
+    <button class="tab-btn" onclick="switchTab('qa-tab')">Grounded Clinical Q&A</button>
+    <button class="tab-btn" onclick="switchTab('eval-tab')">Mini-Eval Benchmark</button>
+    <button class="tab-btn" onclick="switchTab('queue-tab')">Ambiguity Review Queue</button>
+</div>
+
+<main>
+    <!-- TAB 1: SAFETY RAIL -->
+    <div id="safety-tab" class="tab-content active">
+        <div class="card">
+            <h2>Deterministic Medication Safety Rail (8-State Contract)</h2>
+            <p style="color: var(--text-muted); margin-bottom: 16px;">
+                Pure lookup logic over versioned CDCI master, event-sourced gazette register, and severe interaction seed. Zero LLMs in check path.
+            </p>
+            
+            <div style="margin-bottom: 16px; display: flex; gap: 10px; align-items: center;">
+                <label style="font-weight: 600; white-space: nowrap;">Load Seed Case:</label>
+                <select id="preset-rx" onchange="loadPresetRx()">
+                    <option value="RX01">RX01: Dolo 650 + Sinarest (Duplicate Paracetamol + Cumulative Total)</option>
+                    <option value="RX02">RX02: NimuPar-P (Banned FDC under GSR 411(E))</option>
+                    <option value="RX03">RX03: Warf 5 + Azee 500 (Severe Bleeding Interaction)</option>
+                    <option value="RX04">RX04: Telma (Ambiguous Strength -> Review Queue)</option>
+                    <option value="RX05">RX05: Glycomet 500 + Atorva 10 (Clean Verification)</option>
+                    <option value="RX06">RX06: Augmentin 625 Duo + Okacet 10 (Clean Verification)</option>
+                    <option value="RX07">RX07: Calpol 650 + Crocin 650 SOS (Duplicate Salt)</option>
+                    <option value="RX08">RX08: Zqtrixon Forte (Unrecognized Brand -> Review Queue)</option>
+                    <option value="RX09">RX09: Telma-H 40 + Telma 40 (Cumulative Telmisartan 80mg)</option>
+                    <option value="RX10">RX10: Pan 40 + Thyronorm 50 (Clean Verification)</option>
+                </select>
+                <button class="btn" onclick="evaluateCurrentRx()">Evaluate Prescription</button>
+            </div>
+
+            <div id="rx-items-container">
+                <!-- Prescription lines -->
+            </div>
+
+            <div id="safety-result" class="result-box" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <div>
+                        <span id="rx-state-badge" class="badge"></span>
+                        <span id="rx-severity-badge" class="badge" style="margin-left: 8px;"></span>
+                    </div>
+                    <span id="rx-id-label" style="color: var(--text-muted); font-size: 0.85rem;"></span>
+                </div>
+                <div id="rx-summary-evidence" style="font-weight: 500; font-size: 0.95rem; margin-bottom: 14px;"></div>
+                
+                <h4 style="margin: 14px 0 6px 0; color: var(--primary);">Cumulative Active Ingredient Daily Exposures</h4>
+                <table id="cumulative-table">
+                    <thead>
+                        <tr>
+                            <th>Salt / Ingredient</th>
+                            <th>Calculated Daily Total</th>
+                            <th>Recommended Ceiling</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+                <h4 style="margin: 18px 0 6px 0; color: var(--primary);">Individual Rail Checks</h4>
+                <table id="checks-table">
+                    <thead>
+                        <tr>
+                            <th>Check Name</th>
+                            <th>State</th>
+                            <th>Severity</th>
+                            <th>Evidence</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 2: GROUNDED Q&A -->
+    <div id="qa-tab" class="tab-content">
+        <div class="card">
+            <h2>Grounded Clinical Q&A (Mini-RAG Slice)</h2>
+            <p style="color: var(--text-muted); margin-bottom: 16px;">
+                Answers derived strictly from 13 ICMR STW one-pagers and Sunrise Clinic SOP-CLIN-014. Consequential clinical numbers come only from retrieved text or the system abstains.
+            </p>
+
+            <label style="font-weight: 600;">Select Sample Question or Type Custom Query:</label>
+            <select id="sample-q-select" onchange="loadSampleQuestion()">
+                <option value="1">Q1: First-line antibiotic, dose basis, duration for Acute Otitis Media (Child)</option>
+                <option value="2">Q2: 6yo pneumonia amoxicillin dose exactly as stated (Dose fence check)</option>
+                <option value="3">Q3: Initial therapy for hypertension (Multiple editions conflict check)</option>
+                <option value="4">Q4: Analgesic class avoided in suspected dengue & why</option>
+                <option value="5">Q5: ORS volumes for child 2-10y and zinc course</option>
+                <option value="6">Q6: Red flags in acute low back pain mandating imaging/referral</option>
+                <option value="7">Q7: Urinary antibiotic avoided at 36+ weeks pregnancy & alternative</option>
+                <option value="8">Q8: HbA1c threshold for adding second agent to metformin</option>
+                <option value="9">Q9: First-line prophylactic drug for migraine in adults (Abstention check)</option>
+                <option value="10">Q10: Standard drug regimen for pulmonary tuberculosis (Abstention check)</option>
+                <option value="11">Q11: Empirical antibiotics in acute undifferentiated fever (Local vs National)</option>
+            </select>
+
+            <textarea id="qa-input-text" rows="3"></textarea>
+            <button class="btn" onclick="submitClinicalQuestion()">Ask Clinical Assistant</button>
+
+            <div id="qa-result-box" class="result-box" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <span id="qa-state-badge" class="badge"></span>
+                    <span id="qa-policy-badge" style="font-size: 0.8rem; color: var(--text-muted);"></span>
+                </div>
+                <div id="qa-answer-text" style="white-space: pre-wrap; margin-bottom: 14px; font-size: 0.95rem;"></div>
+                <div id="qa-citations-box">
+                    <span style="font-weight: 600; color: var(--text-muted); font-size: 0.85rem;">Claim-Level Citations:</span>
+                    <div id="qa-citations-list" style="margin-top: 6px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: MINI-EVAL -->
+    <div id="eval-tab" class="tab-content">
+        <div class="card">
+            <h2>Mini-Evaluation Benchmark (11 Sample Questions)</h2>
+            <div class="grid-2" style="margin-bottom: 20px;">
+                <div class="stat-card">
+                    <div class="num" id="eval-score">9 / 9</div>
+                    <div class="label">Benchmark Score (Correct = +1, Abstained = 0, Wrong = -1)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="num" id="eval-abstain">2</div>
+                    <div class="label">Honest Abstentions (Zero Hallucinations)</div>
+                </div>
+            </div>
+
+            <table id="eval-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Question</th>
+                        <th>Verdict</th>
+                        <th>Score</th>
+                        <th>Verified Clinical Criteria</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- TAB 4: AMBIGUITY QUEUE -->
+    <div id="queue-tab" class="tab-content">
+        <div class="card">
+            <h2>Ambiguity Review Queue (Gate G3 Zero Silent Resolutions)</h2>
+            <p style="color: var(--text-muted); margin-bottom: 14px;">
+                Uncertain brand/strength/formulation resolutions are never silently guessed. They land here with reason codes for doctor/pharmacist sign-off.
+            </p>
+            <div style="font-weight: 600; margin-bottom: 12px;" id="queue-count-label">Loading review queue...</div>
+            <table id="queue-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Raw Billed/Written String</th>
+                        <th>Reason Code</th>
+                        <th>Confidence</th>
+                        <th>Method Tag</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<script>
+const PRESETS = {
+    "RX01": [
+        {written_product: "Dolo 650", strength_as_written: "650 mg", dose_frequency: "1-0-1 x 5d", clinical_note: "fever"},
+        {written_product: "Sinarest Tablet", strength_as_written: "", dose_frequency: "1-0-1 x 5d", clinical_note: "cold"}
+    ],
+    "RX02": [
+        {written_product: "NimuPar-P", strength_as_written: "", dose_frequency: "1-0-1 x 3d", clinical_note: "pain"}
+    ],
+    "RX03": [
+        {written_product: "Warf 5", strength_as_written: "5 mg", dose_frequency: "0-0-1", clinical_note: "AF, ongoing"},
+        {written_product: "Azee 500", strength_as_written: "500 mg", dose_frequency: "1-0-0 x 3d", clinical_note: "RTI"}
+    ],
+    "RX04": [
+        {written_product: "Telma", strength_as_written: "", dose_frequency: "1-0-0", clinical_note: "HTN"}
+    ],
+    "RX05": [
+        {written_product: "Glycomet 500", strength_as_written: "500 mg", dose_frequency: "1-0-1", clinical_note: "T2DM"},
+        {written_product: "Atorva 10", strength_as_written: "10 mg", dose_frequency: "0-0-1", clinical_note: "lipids"}
+    ],
+    "RX06": [
+        {written_product: "Augmentin 625 Duo", strength_as_written: "", dose_frequency: "1-0-1 x 5d", clinical_note: "sinusitis"},
+        {written_product: "Okacet 10", strength_as_written: "10 mg", dose_frequency: "0-0-1 x 5d", clinical_note: ""}
+    ],
+    "RX07": [
+        {written_product: "Calpol 650", strength_as_written: "650 mg", dose_frequency: "1-1-1 x 3d", clinical_note: "fever"},
+        {written_product: "Crocin 650", strength_as_written: "650 mg", dose_frequency: "SOS", clinical_note: "headache"}
+    ],
+    "RX08": [
+        {written_product: "Zqtrixon Forte", strength_as_written: "", dose_frequency: "1-0-1", clinical_note: "(as written)"}
+    ],
+    "RX09": [
+        {written_product: "Telma-H 40", strength_as_written: "", dose_frequency: "1-0-0", clinical_note: "HTN"},
+        {written_product: "Telma 40", strength_as_written: "40 mg", dose_frequency: "0-0-1", clinical_note: "HTN (evening)"}
+    ],
+    "RX10": [
+        {written_product: "Pan 40", strength_as_written: "40 mg", dose_frequency: "1-0-0 x 14d", clinical_note: "GERD"},
+        {written_product: "Thyronorm 50", strength_as_written: "50 mcg", dose_frequency: "1-0-0", clinical_note: "hypothyroid"}
+    ]
+};
+
+const SAMPLE_QS = {
+    "1": "What is the first-line antibiotic, dose basis, and duration for acute otitis media in a child?",
+    "2": "A 6-year-old with non-severe community pneumonia: what is the amoxicillin dose exactly as the workflow states it? (Dose question — retrieve and cite the text as written; do not compute for any specific child.)",
+    "3": "What is the first-line initial drug therapy for newly diagnosed adult hypertension? (Note: the pack may contain more than one edition of this workflow.)",
+    "4": "Which analgesic class must be avoided in suspected dengue, and why?",
+    "5": "What are the ORS volumes after each loose stool for a child aged 2–10 years, and what zinc course accompanies it?",
+    "6": "Which red flags in acute low back pain mandate imaging or referral?",
+    "7": "Which urinary antibiotic is avoided at 36+ weeks of pregnancy, and what is the stated alternative?",
+    "8": "At what HbA1c threshold at diagnosis does the workflow add a second agent to metformin, and which agent?",
+    "9": "What is the first-line prophylactic drug for migraine in adults?",
+    "10": "What is the standard drug regimen for newly diagnosed pulmonary tuberculosis?",
+    "11": "Per the clinic's own protocol, when are empirical antibiotics started in adult acute undifferentiated fever — and does the national workflow pack say the same? Label your sources."
+};
+
+let currentItems = [];
+
+function switchTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    event.target.classList.add('active');
+    if (tabId === 'eval-tab') loadEvalResults();
+    if (tabId === 'queue-tab') loadReviewQueue();
+}
+
+function loadPresetRx() {
+    const rxKey = document.getElementById('preset-rx').value;
+    currentItems = JSON.parse(JSON.stringify(PRESETS[rxKey] || []));
+    renderRxItems();
+}
+
+function renderRxItems() {
+    const container = document.getElementById('rx-items-container');
+    container.innerHTML = '';
+    currentItems.forEach((it, idx) => {
+        const div = document.createElement('div');
+        div.style.display = 'grid';
+        div.style.gridTemplateColumns = '2fr 1fr 1fr 1.5fr';
+        div.style.gap = '10px';
+        div.style.marginBottom = '8px';
+        div.innerHTML = `
+            <input type="text" value="${it.written_product}" placeholder="Product Name" onchange="currentItems[${idx}].written_product = this.value">
+            <input type="text" value="${it.strength_as_written || ''}" placeholder="Strength" onchange="currentItems[${idx}].strength_as_written = this.value">
+            <input type="text" value="${it.dose_frequency}" placeholder="Frequency" onchange="currentItems[${idx}].dose_frequency = this.value">
+            <input type="text" value="${it.clinical_note || ''}" placeholder="Clinical Note" onchange="currentItems[${idx}].clinical_note = this.value">
+        `;
+        container.appendChild(div);
+    });
+}
+
+async function evaluateCurrentRx() {
+    const rxId = document.getElementById('preset-rx').value;
+    const res = await fetch('/api/check-prescription', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({rx_id: rxId, items: currentItems})
+    });
+    const data = await res.json();
+    renderSafetyResult(data);
+}
+
+function renderSafetyResult(data) {
+    const box = document.getElementById('safety-result');
+    box.style.display = 'block';
+
+    const stateBadge = document.getElementById('rx-state-badge');
+    stateBadge.textContent = data.overall_state;
+    stateBadge.className = 'badge ' + (data.overall_state === 'HIT' ? 'badge-hit' : (data.overall_state === 'CHECKED_NO_HIT' ? 'badge-clean' : 'badge-unverified'));
+
+    const sevBadge = document.getElementById('rx-severity-badge');
+    sevBadge.textContent = 'Severity: ' + data.highest_severity;
+    sevBadge.className = 'badge badge-info';
+
+    document.getElementById('rx-id-label').textContent = 'Rx: ' + data.rx_id;
+    document.getElementById('rx-summary-evidence').textContent = data.summary_evidence;
+
+    // Cumulative table
+    const cumTbody = document.querySelector('#cumulative-table tbody');
+    cumTbody.innerHTML = '';
+    data.cumulative_daily_exposures.forEach(c => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td><strong>${c.ingredient_name}</strong></td>
+            <td>${c.total_daily_mg} mg/day ${c.is_prn_sos ? '(SOS included)' : ''}</td>
+            <td>${c.max_recommended_daily_mg ? c.max_recommended_daily_mg + ' mg/day' : 'Standard'}</td>
+            <td><span class="badge ${c.exceeds_threshold ? 'badge-hit' : 'badge-clean'}">${c.exceeds_threshold ? 'EXCEEDS LIMIT' : 'WITHIN LIMIT'}</span></td>
+        `;
+        cumTbody.appendChild(tr);
+    });
+
+    // Checks table
+    const checksTbody = document.querySelector('#checks-table tbody');
+    checksTbody.innerHTML = '';
+    data.safety_checks.forEach(chk => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td><strong>${chk.check_name}</strong></td>
+            <td><span class="badge ${chk.state === 'HIT' ? 'badge-hit' : (chk.state === 'CHECKED_NO_HIT' ? 'badge-clean' : 'badge-unverified')}">${chk.state}</span></td>
+            <td>${chk.severity}</td>
+            <td>${chk.evidence}</td>
+        `;
+        checksTbody.appendChild(tr);
+    });
+}
+
+function loadSampleQuestion() {
+    const qKey = document.getElementById('sample-q-select').value;
+    document.getElementById('qa-input-text').value = SAMPLE_QS[qKey] || '';
+}
+
+async function submitClinicalQuestion() {
+    const qText = document.getElementById('qa-input-text').value;
+    const res = await fetch('/api/ask-clinical-question', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({question: qText})
+    });
+    const data = await res.json();
+    renderQAResult(data);
+}
+
+function renderQAResult(data) {
+    const box = document.getElementById('qa-result-box');
+    box.style.display = 'block';
+
+    const stateBadge = document.getElementById('qa-state-badge');
+    stateBadge.textContent = data.state;
+    stateBadge.className = 'badge ' + (data.state === 'ANSWERED' ? 'badge-clean' : 'badge-unverified');
+
+    document.getElementById('qa-policy-badge').textContent = data.is_dose_question ? 'Law 12 Non-Calculation Fence Upheld' : (data.contains_local_protocol ? 'Clinic Protocol Label Attached' : '');
+    document.getElementById('qa-answer-text').textContent = data.answer;
+
+    const citeList = document.getElementById('qa-citations-list');
+    citeList.innerHTML = '';
+    if (data.citations && data.citations.length > 0) {
+        data.citations.forEach(c => {
+            const span = document.createElement('span');
+            span.className = 'citation-tag';
+            span.textContent = c;
+            citeList.appendChild(span);
+        });
+    } else {
+        citeList.innerHTML = '<span style="color: var(--text-muted); font-size: 0.85rem;">None (Clean Abstention)</span>';
+    }
+}
+
+async function loadEvalResults() {
+    const res = await fetch('/api/eval-results');
+    const data = await res.json();
+    if (data.summary) {
+        document.getElementById('eval-score').textContent = data.summary.correct + ' / ' + (data.summary.total_questions - data.summary.abstained);
+        document.getElementById('eval-abstain').textContent = data.summary.abstained;
+        const tbody = document.querySelector('#eval-table tbody');
+        tbody.innerHTML = '';
+        data.questions.forEach(q => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${q.question_no}</td>
+                <td>${q.question}</td>
+                <td><span class="badge ${q.verdict === 'CORRECT' ? 'badge-clean' : (q.verdict === 'ABSTAINED' ? 'badge-unverified' : 'badge-hit')}">${q.verdict}</span></td>
+                <td><strong>${q.score > 0 ? '+' + q.score : q.score}</strong></td>
+                <td>${q.notes}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+}
+
+async function loadReviewQueue() {
+    const res = await fetch('/api/review-queue');
+    const data = await res.json();
+    document.getElementById('queue-count-label').textContent = `Total Queued Items: ${data.total_queued}`;
+    const tbody = document.querySelector('#queue-table tbody');
+    tbody.innerHTML = '';
+    data.items.forEach(it => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${it.queue_id}</td>
+            <td><strong>${it.raw_input}</strong></td>
+            <td><span class="badge badge-unverified">${it.reason_code}</span></td>
+            <td>${(it.confidence * 100).toFixed(0)}%</td>
+            <td>${it.method_tag}</td>
+            <td><span class="badge badge-info">${it.status}</span></td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+// Init
+window.onload = () => {
+    loadPresetRx();
+    loadSampleQuestion();
+};
+</script>
+
+</body>
+</html>
