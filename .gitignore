@@ -1,0 +1,12 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local SQLite databases (built on demand via python run_all.py)
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Scratch scripts
+scratch_test.py
