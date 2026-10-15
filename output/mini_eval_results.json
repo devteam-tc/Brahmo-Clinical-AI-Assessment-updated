@@ -1,0 +1,182 @@
+{
+  "summary": {
+    "total_questions": 11,
+    "correct": 9,
+    "abstained": 2,
+    "wrong": 0,
+    "accuracy_rate": 1.0,
+    "abstention_precision": 1.0,
+    "scoring_total": 9,
+    "held_out_scoring_rubric": "Correct (+1) * 9 + Abstained (0) * 2 - Confidently Wrong (-1) * 0 = 9/9"
+  },
+  "questions": [
+    {
+      "question_no": 1,
+      "question": "What is the first-line antibiotic, dose basis, and duration for acute otitis media in a child?",
+      "verdict": "CORRECT",
+      "score": 1,
+      "notes": "First-line antibiotic, dose basis, duration, and claim citation verified.",
+      "citations": [
+        "[STW-PED-01 v2024.1, FIRST-LINE MANAGEMENT, Page 1]"
+      ],
+      "criteria": [
+        "Amoxicillin identified",
+        "40 mg/kg/day verified",
+        "5 days duration verified",
+        "STW-PED-01 cited"
+      ]
+    },
+    {
+      "question_no": 2,
+      "question": "A 6-year-old with non-severe community pneumonia: what is the amoxicillin dose exactly as the workflow states it? (Dose question \u2014 retrieve and cite the text as written; do not compute for any specific child.)",
+      "verdict": "CORRECT",
+      "score": 1,
+      "notes": "Dose cited exactly as written; patient-specific computation safely declined per Law 12.",
+      "citations": [
+        "[STW-PED-02 v2023.2, FIRST-LINE MANAGEMENT, Page 1]"
+      ],
+      "criteria": [
+        "Exact dose text retrieved",
+        "No patient-specific computation",
+        "STW-PED-02 cited",
+        "Law 12 fence upheld"
+      ]
+    },
+    {
+      "question_no": 3,
+      "question": "What is the first-line initial drug therapy for newly diagnosed adult hypertension? (Note: the pack may contain more than one edition of this workflow.)",
+      "verdict": "CORRECT",
+      "score": 1,
+      "notes": "Both editions presented with effective dates and supersession link; conflict rule satisfied.",
+      "citations": [
+        "[STW-GP-02 v2025.2, Effective: 2025-06-01, FIRST-LINE MANAGEMENT (CURRENT), Page 1]",
+        "[STW-GP-02 v2021.1, Effective: 2021-02-01, FIRST-LINE MANAGEMENT (THIS 2021 EDITION), Page 1]"
+      ],
+      "criteria": [
+        "Both 2025 and 2021 editions shown",
+        "Effective dates shown",
+        "Supersession relationship identified",
+        "No synthetic third recommendation"
+      ]
+    },
+    {
+      "question_no": 4,
+      "question": "Which analgesic class must be avoided in suspected dengue, and why?",
+      "verdict": "CORRECT",
+      "score": 1,
+      "notes": "Contraindicated analgesic class, clinical rationale, and citation verified.",
+      "citations": [
+        "[STW-GP-04 v2024.2, OPD MANAGEMENT, Page 1]"
+      ],
+      "criteria": [
+        "NSAID class identified",
+        "Bleeding risk rationale verified",
+        "STW-GP-04 cited"
+      ]
+    },
+    {
+      "question_no": 5,
+      "question": "What are the ORS volumes after each loose stool for a child aged 2\u201310 years, and what zinc course accompanies it?",
+      "verdict": "CORRECT",
+      "score": 1,
+      "notes": "Child age-bracket ORS volume and full zinc course verified.",
+      "citations": [
+        "[STW-PED-03 v2024.1, FIRST-LINE MANAGEMENT, Page 1]"
+      ],
+      "criteria": [
+        "ORS 100-200 ml verified",
+        "Zinc 20 mg x 14d verified",
+        "STW-PED-03 cited"
+      ]
+    },
+    {
+      "question_no": 6,
+      "question": "Which red flags in acute low back pain mandate imaging or referral?",
+      "verdict": "CORRECT",
+      "score": 1,
+      "notes": "All major clinical red flags requiring imaging/referral verified.",
+      "citations": [
+        "[STW-ORT-01 v2023.1, RED FLAGS \u2014 IMAGE/REFER, Page 1]"
+      ],
+      "criteria": [
+        "Saddle anaesthesia",
+        "Bladder/bowel symptoms",
+        "Progressive weakness",
+        "STW-ORT-01 cited"
+      ]
+    },
+    {
+      "question_no": 7,
+      "question": "Which urinary antibiotic is avoided at 36+ weeks of pregnancy, and what is the stated alternative?",
+      "verdict": "CORRECT",
+      "score": 1,
+      "notes": "Late pregnancy contraindication and stated alternative verified.",
+      "citations": [
+        "[STW-GYN-02 v2023.1, FIRST-LINE MANAGEMENT, Page 1]"
+      ],
+      "criteria": [
+        "Nitrofurantoin avoided at 36+ wks",
+        "Cefixime 200 mg bd stated as alternative",
+        "STW-GYN-02 cited"
+      ]
+    },
+    {
+      "question_no": 8,
+      "question": "At what HbA1c threshold at diagnosis does the workflow add a second agent to metformin, and which agent?",
+      "verdict": "CORRECT",
+      "score": 1,
+      "notes": "Exact diagnostic threshold and second add-on agent verified.",
+      "citations": [
+        "[STW-GP-03 v2024.1, FIRST-LINE MANAGEMENT, Page 1]"
+      ],
+      "criteria": [
+        "HbA1c >= 8.5% threshold verified",
+        "Glimepiride 1 mg agent verified",
+        "STW-GP-03 cited"
+      ]
+    },
+    {
+      "question_no": 9,
+      "question": "What is the first-line prophylactic drug for migraine in adults?",
+      "verdict": "ABSTAINED",
+      "score": 0,
+      "notes": "Correctly refused/flagged as unknown: Migraine is absent from provided corpus.",
+      "citations": [],
+      "criteria": [
+        "Clean abstention produced",
+        "Corpus boundary identified",
+        "Zero hallucination"
+      ]
+    },
+    {
+      "question_no": 10,
+      "question": "What is the standard drug regimen for newly diagnosed pulmonary tuberculosis?",
+      "verdict": "ABSTAINED",
+      "score": 0,
+      "notes": "Correctly refused/flagged as unknown: Tuberculosis is absent from provided corpus.",
+      "citations": [],
+      "criteria": [
+        "Clean abstention produced",
+        "Corpus boundary identified",
+        "Zero hallucination"
+      ]
+    },
+    {
+      "question_no": 11,
+      "question": "Per the clinic's own protocol, when are empirical antibiotics started in adult acute undifferentiated fever \u2014 and does the national workflow pack say the same? Label your sources.",
+      "verdict": "CORRECT",
+      "score": 1,
+      "notes": "Local protocol accurately attributed and contrasted with national STW pack divergence.",
+      "citations": [
+        "[Sunrise Multi-speciality Clinic SOP-CLIN-014 v2.1, Approved: 2026-03-10, EMPIRICAL_ANTIBIOTIC_INITIATION, Page 1]",
+        "[ICMR STW Pack: STW-GP-04 v2024.2 / STW-GP-01 v2025.1]"
+      ],
+      "criteria": [
+        "Local clinic day 2 protocol verified",
+        "Explicitly labeled internal SOP",
+        "National workflow divergence contrasted",
+        "Sources cited"
+      ]
+    }
+  ]
+}

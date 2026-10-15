@@ -1,0 +1,237 @@
+{
+  "trace_metadata": {
+    "trace_id": "TRACE-20261015191323-RX01",
+    "timestamp": "2026-10-15T19:13:23.360682",
+    "engine_version": "1.0.0-prod",
+    "engine_name": "BrahmoClinicalEngine"
+  },
+  "manifest_versions": {
+    "drug_master_load_batch": "BATCH-2026-10-15-01",
+    "regulatory_register_version": "GAZETTE-REG-2026.1",
+    "interaction_seed_version": "INT-SEED-2026.1",
+    "safety_rule_version": "RULE-SAFETY-2026.1",
+    "corpus_version": "STW-CORPUS-2026Q3"
+  },
+  "prescription_evaluation": {
+    "rx_id": "RX01",
+    "overall_state": "HIT",
+    "highest_severity": "WARNING",
+    "items_verified": true,
+    "summary_evidence": "[DUPLICATE ACTIVE INGREDIENT HIT]: Duplicate active ingredient 'Paracetamol' prescribed across multiple products: Dolo 650 (1300 mg/day) and Sinarest Tablet (1000 mg/day). Cumulative daily exposure: 2300 mg/day",
+    "normalization_results": [
+      {
+        "item_no": 1,
+        "written_product": "Dolo 650",
+        "strength_as_written": "650 mg",
+        "dose_frequency": "1-0-1 x 5d",
+        "clinical_note": "fever",
+        "status": "RESOLVED",
+        "confidence": 1.0,
+        "method_tag": "EXACT_MATCH_NOMINAL_STRENGTH",
+        "resolved_product_id": "CD1000",
+        "resolved_brand_name": "Dolo 650",
+        "dose_form": "Tablet",
+        "active_ingredients": [
+          {
+            "ingredient_name": "Paracetamol",
+            "strength_mg": 650.0,
+            "unit": "mg"
+          }
+        ],
+        "reason_code": null,
+        "review_queue_id": null
+      },
+      {
+        "item_no": 2,
+        "written_product": "Sinarest Tablet",
+        "strength_as_written": "",
+        "dose_frequency": "1-0-1 x 5d",
+        "clinical_note": "cold",
+        "status": "RESOLVED",
+        "confidence": 1.0,
+        "method_tag": "EXACT_MATCH",
+        "resolved_product_id": "CD1021",
+        "resolved_brand_name": "Sinarest Tablet",
+        "dose_form": "Tablet",
+        "active_ingredients": [
+          {
+            "ingredient_name": "Paracetamol",
+            "strength_mg": 500.0,
+            "unit": "mg"
+          },
+          {
+            "ingredient_name": "Chlorpheniramine",
+            "strength_mg": 2.0,
+            "unit": "mg"
+          },
+          {
+            "ingredient_name": "Phenylephrine",
+            "strength_mg": 10.0,
+            "unit": "mg"
+          }
+        ],
+        "reason_code": null,
+        "review_queue_id": null
+      }
+    ],
+    "safety_checks": [
+      {
+        "check_name": "DUPLICATE_ACTIVE_INGREDIENT",
+        "state": "HIT",
+        "severity": "WARNING",
+        "evidence": "Duplicate active ingredient 'Paracetamol' prescribed across multiple products: Dolo 650 (1300 mg/day) and Sinarest Tablet (1000 mg/day). Cumulative daily exposure: 2300 mg/day",
+        "rule_version": "RULE-SAFETY-2026.1",
+        "data_version": "GAZETTE-REG-2026.1+INT-SEED-2026.1",
+        "provenance": {
+          "duplicate_hits": [
+            {
+              "salt": "Paracetamol",
+              "total_daily_mg": 2300.0,
+              "exceeds": false,
+              "evidence": "Duplicate active ingredient 'Paracetamol' prescribed across multiple products: Dolo 650 (1300 mg/day) and Sinarest Tablet (1000 mg/day). Cumulative daily exposure: 2300 mg/day",
+              "contributing_products": [
+                {
+                  "item_no": 1,
+                  "brand_name": "Dolo 650",
+                  "strength_mg": 650.0,
+                  "dose_frequency": "1-0-1 x 5d",
+                  "daily_doses": 2.0,
+                  "daily_total_mg": 1300.0,
+                  "is_prn": false
+                },
+                {
+                  "item_no": 2,
+                  "brand_name": "Sinarest Tablet",
+                  "strength_mg": 500.0,
+                  "dose_frequency": "1-0-1 x 5d",
+                  "daily_doses": 2.0,
+                  "daily_total_mg": 1000.0,
+                  "is_prn": false
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "check_name": "REGULATORY_STATUS_FDC",
+        "state": "CHECKED_NO_HIT",
+        "severity": "INFO",
+        "evidence": "All prescribed formulations are unrestricted under current event-sourced national gazette records.",
+        "rule_version": "RULE-SAFETY-2026.1",
+        "data_version": "GAZETTE-REG-2026.1+INT-SEED-2026.1",
+        "provenance": {}
+      },
+      {
+        "check_name": "SEVERE_INTERACTION",
+        "state": "CHECKED_NO_HIT",
+        "severity": "INFO",
+        "evidence": "Zero severe ingredient-level interactions detected against high-priority seed register.",
+        "rule_version": "RULE-SAFETY-2026.1",
+        "data_version": "GAZETTE-REG-2026.1+INT-SEED-2026.1",
+        "provenance": {}
+      },
+      {
+        "check_name": "CUMULATIVE_DOSE_LIMIT",
+        "state": "CHECKED_NO_HIT",
+        "severity": "INFO",
+        "evidence": "All cumulative active ingredient daily exposures are within recommended therapeutic limits.",
+        "rule_version": "RULE-SAFETY-2026.1",
+        "data_version": "GAZETTE-REG-2026.1+INT-SEED-2026.1",
+        "provenance": {}
+      }
+    ],
+    "cumulative_daily_exposures": [
+      {
+        "ingredient_name": "Paracetamol",
+        "total_daily_mg": 2300.0,
+        "max_recommended_daily_mg": 3000.0,
+        "exceeds_threshold": false,
+        "is_prn_sos": false,
+        "contributing_products": [
+          {
+            "item_no": 1,
+            "brand_name": "Dolo 650",
+            "strength_mg": 650.0,
+            "dose_frequency": "1-0-1 x 5d",
+            "daily_doses": 2.0,
+            "daily_total_mg": 1300.0,
+            "is_prn": false
+          },
+          {
+            "item_no": 2,
+            "brand_name": "Sinarest Tablet",
+            "strength_mg": 500.0,
+            "dose_frequency": "1-0-1 x 5d",
+            "daily_doses": 2.0,
+            "daily_total_mg": 1000.0,
+            "is_prn": false
+          }
+        ]
+      },
+      {
+        "ingredient_name": "Chlorpheniramine",
+        "total_daily_mg": 4.0,
+        "max_recommended_daily_mg": null,
+        "exceeds_threshold": false,
+        "is_prn_sos": false,
+        "contributing_products": [
+          {
+            "item_no": 2,
+            "brand_name": "Sinarest Tablet",
+            "strength_mg": 2.0,
+            "dose_frequency": "1-0-1 x 5d",
+            "daily_doses": 2.0,
+            "daily_total_mg": 4.0,
+            "is_prn": false
+          }
+        ]
+      },
+      {
+        "ingredient_name": "Phenylephrine",
+        "total_daily_mg": 20.0,
+        "max_recommended_daily_mg": null,
+        "exceeds_threshold": false,
+        "is_prn_sos": false,
+        "contributing_products": [
+          {
+            "item_no": 2,
+            "brand_name": "Sinarest Tablet",
+            "strength_mg": 10.0,
+            "dose_frequency": "1-0-1 x 5d",
+            "daily_doses": 2.0,
+            "daily_total_mg": 20.0,
+            "is_prn": false
+          }
+        ]
+      }
+    ]
+  },
+  "grounded_clinical_qa": {
+    "question": "Which analgesic class must be avoided in suspected dengue, and why?",
+    "state": "ANSWERED",
+    "answer": "In suspected dengue fever:\n\u2022 Analgesic class that must be avoided: NSAIDs (Non-Steroidal Anti-Inflammatory Drugs), specifically avoiding Ibuprofen, Diclofenac, Aspirin and all NSAIDs.\n\u2022 Reason stated in workflow: Bleeding risk.\n\u2022 Permitted antipyretic: Paracetamol 500\u2013650 mg every 6 h (max 3 g/day) for fever with adequate oral fluids.\nCitation: [STW-GP-04 v2024.2, OPD MANAGEMENT, Page 1].",
+    "claim_citations": [
+      "[STW-GP-04 v2024.2, OPD MANAGEMENT, Page 1]"
+    ],
+    "abstention_reason": null,
+    "conflict_detected": false,
+    "is_dose_question": false,
+    "contains_local_protocol": false,
+    "retrieved_evidence_units": [
+      {
+        "chunk_id": "STW-GP-04_v2024.2_OPD_MANAGEMENT",
+        "doc_code": "STW-GP-04",
+        "title": "Dengue Fever - OPD Management",
+        "specialty": "General Practice",
+        "version": "2024.2",
+        "effective_date": "2024-07-01",
+        "supersedes": null,
+        "section": "OPD MANAGEMENT",
+        "decision_type": "RECOMMENDATION",
+        "content": "Paracetamol 500\u2013650 mg every 6 h for fever (max 3 g/day); adequate oral fluids \u2022 AVOID Ibuprofen, Diclofenac, Aspirin and all NSAIDs \u2014 bleeding risk \u2022 Daily CBC from day 3 of illness \u2022 FOLLOW-UP \u2022 Immediate return if any warning sign appears",
+        "is_local_protocol": false
+      }
+    ]
+  }
+}
