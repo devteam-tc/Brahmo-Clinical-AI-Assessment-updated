@@ -1,7 +1,7 @@
 # BRAHMO — Senior Engineering Assessment: Clinical AI
 ## Day-2 Q&A Form
 
-**Candidate:** Senior Engineering Candidate (Clinical AI / Systems Architecture)  
+**Candidate:** Bayya Divya Sri (Senior Engineering Candidate)  
 **Date Submitted:** Day 2 of Evaluation Period  
 **Focus:** Architectural boundaries, data provenance, regulatory stays, and Indian clinical reality
 

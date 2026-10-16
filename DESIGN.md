@@ -1,5 +1,5 @@
 # BRAHMO CLINICAL AI — ARCHITECTURAL DESIGN RECORD
-**Candidate:** Senior Engineering Candidate (Clinical AI / Systems Architecture)
+**Candidate:** Bayya Divya Sri (Senior/Staff Engineering Candidate)
 
 ---
 

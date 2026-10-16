@@ -1,24 +1,25 @@
 # BRAHMO CLINICAL AI — SENIOR ENGINEERING SUBMISSION
 
-**Candidate:** Senior Engineering Candidate (Clinical AI / Systems Architecture)  
+**Candidate:** Bayya Divya Sri  
 **Role:** Senior/Staff Engineer — Clinical AI (Architecture, RAG, Data, Safety Systems)  
-**Repository State:** Complete Production Core (Modules A, B, C, Stretch, Tests, Documentation, Part 2 Plan)
+**Repository State:** Complete Production Core (Modules A, B, C, Stretch, Tests, Documentation, Part 2 Plan, Final Architecture)
 
 ---
 
 ## Deliverables Checklist & Quick Links
 
 - [x] **How to run:** Fresh-machine reproduction in **< 35 seconds** (`python run_all.py`), including migrations, data loads, tests, seeded demonstration, mini-eval, and end-to-end trace. [See §1 below](#1-how-to-run-fresh-machine-reproduction).
-- [x] **[DESIGN.md](file:///c:/Users/BayyaDivyaSri/Downloads/Brahmo%20Clinical%20AI%20Assessment/DESIGN.md):** Opens with system restatement in candidate's own words + the 3 riskiest assumptions seen in starter materials + 12 formal Decision Records (D-001 to D-012) with Why, Rejected Alternatives, and Implications.
-- [x] **[SCALE.md](file:///c:/Users/BayyaDivyaSri/Downloads/Brahmo%20Clinical%20AI%20Assessment/SCALE.md):** 1-page deep-dive on architectural strain at 100× data volume (200k products, 80k stock rows, 1.3k guidelines) and 100 concurrent OPD doctors, with prioritized immediate mitigations.
-- [x] **[GAPS_REGISTER.md](file:///c:/Users/BayyaDivyaSri/Downloads/Brahmo%20Clinical%20AI%20Assessment/GAPS_REGISTER.md):** Honest scope accounting & discovered data anomalies (CDCI Thyronorm 50 mg vs mcg unit typo; Crocin Advance Ibuprofen vs Paracetamol anomaly; synthetic pharmacy stock collisions; Law 12 dose calculation fence).
-- [x] **[DAY2_QA.md](file:///c:/Users/BayyaDivyaSri/Downloads/Brahmo%20Clinical%20AI%20Assessment/DAY2_QA.md):** Completed Day-2 Q&A form with 5 high-leverage architectural, legal jurisdiction, and data-rights questions.
-- [x] **[PROMPT_LIBRARY.md](file:///c:/Users/BayyaDivyaSri/Downloads/Brahmo%20Clinical%20AI%20Assessment/PROMPT_LIBRARY.md):** Replayable prompt library for normalization, grounded clinical answering, and gazette supersession extraction.
-- [x] **[CLAUDE.md](file:///c:/Users/BayyaDivyaSri/Downloads/Brahmo%20Clinical%20AI%20Assessment/CLAUDE.md):** System engineering conventions, architecture invariants, and coding standards.
-- [x] **Mini-eval results:** Module B harness output over 11 sample questions (**9 Correct [+1], 2 Clean Abstentions [0], 0 Wrong [-1], Net Score: 9/9**). [See §2 below](#2-mini-eval-results-module-b4) and [mini_eval_results.json](file:///c:/Users/BayyaDivyaSri/Downloads/Brahmo%20Clinical%20AI%20Assessment/output/mini_eval_results.json).
-- [x] **Seeded-prescription rail outputs:** All 10 prescriptions from `seed_prescriptions_template.csv` completed with 8-state vocabulary, highest severity, and clinical evidence. [See §3 below](#3-seeded-prescription-safety-rail-outputs-module-a7) and [seed_prescriptions_completed.csv](file:///c:/Users/BayyaDivyaSri/Downloads/Brahmo%20Clinical%20AI%20Assessment/seed_prescriptions_completed.csv).
-- [x] **End-to-end trace:** Module C unified JSON trace checked in at [sample_end_to_end_trace.json](file:///c:/Users/BayyaDivyaSri/Downloads/Brahmo%20Clinical%20AI%20Assessment/output/sample_end_to_end_trace.json).
-- [x] **[PART2_PLAN.md](file:///c:/Users/BayyaDivyaSri/Downloads/Brahmo%20Clinical%20AI%20Assessment/PART2_PLAN.md):** End-to-end production plan for 100 simultaneous doctors running 1,000 questions each (100,000 total questions), with satisfaction measured vs ChatGPT/Claude across all 9 required sections.
+- [x] **[BRAHMO_Clinical_AI_Final_Architecture_and_Doctor_Readiness_Plan.md](BRAHMO_Clinical_AI_Final_Architecture_and_Doctor_Readiness_Plan.md):** The comprehensive 15-page final architecture and doctor-readiness plan (Sections S1–S9) adhering strictly to the Merged Candidate Pack specification.
+- [x] **[DESIGN.md](DESIGN.md):** Opens with system restatement in candidate's own words + the 3 riskiest assumptions seen in starter materials + 12 formal Decision Records (D-001 to D-012) with Why, Rejected Alternatives, and Implications.
+- [x] **[SCALE.md](SCALE.md):** 1-page deep-dive on architectural strain at 100× data volume (200k products, 80k stock rows, 1.3k guidelines) and 100 concurrent OPD doctors, with prioritized immediate mitigations.
+- [x] **[GAPS_REGISTER.md](GAPS_REGISTER.md):** Honest scope accounting & discovered data anomalies (CDCI Thyronorm 50 mg vs mcg unit typo; Crocin Advance Ibuprofen vs Paracetamol anomaly; synthetic pharmacy stock collisions; Law 12 dose calculation fence).
+- [x] **[DAY2_QA.md](DAY2_QA.md):** Completed Day-2 Q&A form with 5 high-leverage architectural, legal jurisdiction, and data-rights questions.
+- [x] **[PROMPT_LIBRARY.md](PROMPT_LIBRARY.md):** Replayable prompt library for normalization, grounded clinical answering, and gazette supersession extraction.
+- [x] **[CLAUDE.md](CLAUDE.md):** System engineering conventions, architecture invariants, and coding standards.
+- [x] **Mini-eval results:** Module B harness output over 11 sample questions (**9 Correct [+1], 2 Clean Abstentions [0], 0 Wrong [-1], Net Score: 9/9**). [See §2 below](#2-mini-eval-results-module-b4) and [mini_eval_results.json](output/mini_eval_results.json).
+- [x] **Seeded-prescription rail outputs:** All 10 prescriptions from `seed_prescriptions_template.csv` completed with 8-state vocabulary, highest severity, and clinical evidence. [See §3 below](#3-seeded-prescription-safety-rail-outputs-module-a7) and [seed_prescriptions_completed.csv](seed_prescriptions_completed.csv).
+- [x] **End-to-end trace:** Module C unified JSON trace checked in at [sample_end_to_end_trace.json](output/sample_end_to_end_trace.json).
+- [x] **[PART2_PLAN.md](PART2_PLAN.md):** End-to-end production plan for 100 simultaneous doctors running 1,000 questions each (100,000 total questions), with satisfaction measured vs ChatGPT/Claude across all 9 required sections.
 - [x] **Stretch Features Delivered:**
   - Dynamic Regulatory Freshness Engine (`stretch/freshness.py`).
   - Colloquial / Phonetic Brand Alias Matcher (`stretch/alias_matcher.py`).

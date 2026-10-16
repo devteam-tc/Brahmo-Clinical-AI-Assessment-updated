@@ -2,7 +2,7 @@
 ## Architecture, Execution Plan & Quality System: From Part 1 Prototype to 100-Doctor Production Pilot
 
 **Role:** Senior/Staff Clinical AI Systems Architect  
-**Author:** Candidate (Assessment Deliverable)  
+**Author:** Bayya Divya Sri  
 **Duration Defended:** **5 Weeks** (Rigorous balance between clinical verification gates, AI-first development throughput, and human legal/medical sign-off).  
 **Target Milestone:** 100 concurrent Indian outpatient doctors running 1,000 real clinical questions each (100,000 live clinical queries + prescriptions), with quantitative satisfaction and safety measured and compared against general assistants (ChatGPT-4o / Claude 3.5 Sonnet).
 
